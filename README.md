@@ -1,2 +1,2 @@
-# Clines.jl
+# Clines
 Circles and lines in the plane

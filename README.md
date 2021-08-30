@@ -1,2 +1,2 @@
 # Clines
-Circles and lines in the plane
+Circles and lines in the plane.

@@ -1,4 +1,3 @@
-module Circles
 using SimpleDrawing, LinearFractionalTransformations
 
 export Circle
@@ -11,7 +10,7 @@ Represents a circle in the plane. Constructors:
 * `circle(z,r)` based on center given as a complex number and a radius
 * `circle(a,b,c)` based on three complex numbers that represent points on the circle
 """
-struct Circle
+struct Circle <: Cline
     x::Float64
     y::Float64
     r::Float64
@@ -112,4 +111,3 @@ include("operations.jl")
 include("kiss.jl")
 include("inversion.jl")
 
-end # module

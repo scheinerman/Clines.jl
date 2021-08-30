@@ -1,5 +1,9 @@
 module Clines
 
-greet() = print("Hello World!")
+abstract type Cline end
+export Cline
+
+include("Circles.jl")
+
 
 end # module

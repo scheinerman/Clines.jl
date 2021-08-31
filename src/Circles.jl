@@ -54,7 +54,6 @@ Return the circumference of the circle.
 """
 circumference(C::Circle) = 2 * π * C.r
 
-
 import Plots: center
 """
     center(C)
@@ -69,12 +68,11 @@ Return a list of three points on the circle `C`.
 function three_points(C::Circle)
     z = center(C)
     r = radius(C)
-    Tuple(z + r * exp(k * (2π * im / 3)) for k = 0:2)
+    return [z + r * exp(k * (2π * im / 3)) for k = 0:2]
 end
 export three_points
 
 import SimpleDrawing: draw
-
 const _FILL_COLOR = :lightgray
 const _LINE_COLOR = :black
 
@@ -99,13 +97,6 @@ function draw(C::Circle, fill::Bool = false; args...)
     end
 end
 
-# applying LFT to a Circle
-
-function (F::LFT)(C::Circle)
-    pp = three_points(C)
-    qq = F.(pp)
-    return Circle(qq...)
-end
 
 include("operations.jl")
 include("kiss.jl")

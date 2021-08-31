@@ -17,7 +17,6 @@ function intersect(C::Circle, D::Circle)::Set{Complex{Float64}}
         return Set{Complex{Float64}}()
     end
 
-
     θ = acos((r^2 + d^2 - s^2) / (2 * r * d))
     u = (w - z) / abs(w - z)
     uu = u * exp(θ * im)
@@ -44,9 +43,21 @@ import Base.issubset
 function issubset(C::Circle, D::Circle)
     z = center(C)
     w = center(D)
-    d = abs(z - w)
+    d = abs(z - w)  # distance between centers
     r = radius(C)
     s = radius(D)
 
-    return d + r <= s
+    return d + r <= s + get_tolerance()
 end
+
+
+function (==)(C::Circle, D::Circle)
+    dx = C.x - D.x
+    dy = C.y - D.y
+    dr = C.r - D.r
+
+    return dx^2 + dy^2 + dr^2 <= get_tolerance()
+end
+
+(==)(::Circle, ::Line) = false
+(==)(::Line, ::Circle) = false

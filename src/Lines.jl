@@ -27,6 +27,8 @@ function (==)(L::Line, M::Line)
     return collinear(L.a, L.b, M.a) && collinear(L.a, L.b, M.b)
 end
 
+
+import Base: in
 """
     in(z,L::Line)
 Check if the point `z` lies on the line `L`.
@@ -69,5 +71,5 @@ function three_points(L::Line)
     x = L.a
     y = L.b
     z = x + 2*(y-x)
-    return x,y,z
+    return [x,y,z]
 end

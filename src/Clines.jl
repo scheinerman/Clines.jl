@@ -4,7 +4,8 @@ abstract type Cline end
 export Cline
 
 
-_DEFAULT_TOL = 1e-10
+const _DEFAULT_TOL = 1e-10
+_TOLERANCE = _DEFAULT_TOL
 
 export set_tolerance, get_tolerance
 
@@ -12,18 +13,18 @@ export set_tolerance, get_tolerance
     set_tolerance(tol)
 Set the tolerance to Cline roundoff errors.
 """
-function set_tolerance(tol::Real)
-    if tol < 0
+function set_tolerance(tol::Real = _DEFAULT_TOL)
+    if tol <= 0
         error("Tolerance cannot be set to $tol; must be positive")
     end
-    global _DEFAULT_TOL = tol
+    global _TOLERANCE = tol
 end
 """
     get_tolerance(tol)
 Return the current tolerance to Cline roundoff errors.
 """
 function get_tolerance()
-    return _DEFAULT_TOL
+    return _TOLERANCE
 end
 
 
@@ -46,8 +47,7 @@ end
 export collinear
 
 
-include("Circles.jl")
-include("Lines.jl")
+is_huge(z::Number) = isinf(z) || abs(z) >= 1/get_tolerance()
 
 function Cline(a::Number, b::Number, c::Number)::Cline
     if isnan(a) || isnan(b) || isnan(c)
@@ -60,20 +60,20 @@ function Cline(a::Number, b::Number, c::Number)::Cline
 
     # If any of the arguments is ∞ then we make a line
 
-    if isinf(a)
-        if isinf(b) || isinf(c)
+    if is_huge(a)
+        if is_huge(b) || is_huge(c)
             error(two_inf)
         end
         b != c || error(two_dif)
         return Line(b, c)
     end
 
-    if isinf(b)   # know that a is not infinite
+    if is_huge(b)   # know that a is not infinite
         a != c || error(two_dif)
         return Line(a, c)
     end
 
-    if isinf(c)   # we know a and b are not infinite
+    if is_huge(c)   # we know a and b are not infinite
         a != b || error(two_dif)
         return Line(a, b)
     end
@@ -106,5 +106,18 @@ end
 
 Cline(a::Number, b::Number) = Cline(a, b, Inf)
 
+include("Lines.jl")
+include("Circles.jl")
+
+
+
+
+# applying LFT to a Cline
+
+function (F::LFT)(C::Cline)
+    pp = three_points(C)
+    qq = F.(pp)
+    return Cline(qq...)
+end
 
 end # module

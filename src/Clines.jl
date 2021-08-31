@@ -106,6 +106,8 @@ end
 
 Cline(a::Number, b::Number) = Cline(a, b, Inf)
 
+import SimpleDrawing: draw
+
 include("Lines.jl")
 include("Circles.jl")
 

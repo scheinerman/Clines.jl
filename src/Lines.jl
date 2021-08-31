@@ -70,6 +70,15 @@ Return a list of three points on the line `L`.
 function three_points(L::Line)
     x = L.a
     y = L.b
-    z = x + 2*(y-x)
-    return [x,y,z]
+    z = x + 2 * (y - x)
+    return [x, y, z]
+end
+
+
+# THIS IS A BAD DRAWING METHOD FOR LINES, BUT WILL HAVE TO DO FOR NOW
+
+function draw(L::Line; args...)
+    a, b, c = three_points(L)
+    draw_segment(b, a, arrow = true, linecolor=:black, args...)
+    draw_segment(b, c, arrow = true, linecolor=:black, args...)
 end

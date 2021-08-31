@@ -31,12 +31,12 @@ import Base.in
 
 """
     in(z,C)
-Check if the point `z` is inside (or on the edge of) the circle `C`. 
+Check if the point `z` is on the circle `C`. 
 May be invoked as `z ∈ C`.
 """
 function in(z::Number, C::Circle)::Bool
     d = abs(z - center(C))
-    return d <= radius(C)
+    return abs(d-radius(C)) <= get_tolerance()
 end
 
 import Base.issubset

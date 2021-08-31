@@ -22,20 +22,16 @@ Line(x::Real, y::Real, xx::Real, yy::Real) = Line(Complex(x, y), Complex(xx, yy)
 import Base: (==)
 
 function (==)(L::Line, M::Line)
-    if non_colinear_check(L.a, L.b, M.a) || non_colinear_check(L.a, L.b, M.b)
-        return false
-    end
-    return true
+    return collinear(L.a, L.b, M.a) && collinear(L.a, L.b, M.b)
 end
 
 """
     in(z,L::Line)
+    in(z,L::Line,tol)
 Check if the point `z` lies on the line `L`.
-
-**Warning**: Very sensitive to roundoff errors.
 """
 function in(z::Number, L::Line)
-    return !non_colinear_check(Complex(z), L.a, L.b)
+    return collinear(Complex(z), L.a, L.b)
 end
 
 

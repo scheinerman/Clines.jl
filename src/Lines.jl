@@ -34,6 +34,30 @@ function in(z::Number, L::Line)
 end
 
 
+"""
+    sort_points(a,b,c)
+
+Given three collinear points (expressed as complex numbers) return them as a 
+3-tuple ensuring the 2nd entry in the tuple lies between the other two points
+on the line that contains them.
+"""
+function sort_points(a::Number, b::Number, c::Number)
+    if !collinear(a, b, c)
+        @warn "The three points are not collinear. Nonsense may ensue."
+    end
+
+    rat = real((c - a) / (b - a))
+
+    if rat >= 1
+        return a, b, c
+    end
+
+    if rat <= 0
+        return b, a, c
+    end
+
+    return a, c, b
+end
 
 
 export Line

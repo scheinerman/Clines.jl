@@ -36,7 +36,7 @@ May be invoked as `z ∈ C`.
 """
 function in(z::Number, C::Circle)::Bool
     d = abs(z - center(C))
-    return abs(d-radius(C)) <= get_tolerance()
+    return abs(d - radius(C)) <= get_tolerance()
 end
 
 import Base.issubset

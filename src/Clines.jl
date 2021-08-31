@@ -96,7 +96,8 @@ function Cline(a::Number, b::Number, c::Number)::Cline
 
     # if the arguments are collienar, we make a line
     if collinear(a, b, c)
-        return Line(a, b)  # may want to use the two "extreme" points 
+        x, y, z = sort_points(a, b, c)
+        return Line(x, z)  
     end
 
     # Otherwise, it's a circle

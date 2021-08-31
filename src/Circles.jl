@@ -64,12 +64,12 @@ center(C::Circle) = Complex(C.x, C.y)
 
 """
     three_points(C)
-Return a list of three points on the circle as complex numbers.
+Return a list of three points on the circle `C`.
 """
 function three_points(C::Circle)
     z = center(C)
     r = radius(C)
-    [z + r * exp(k * (2π * im / 3)) for k = 0:2]
+    Tuple(z + r * exp(k * (2π * im / 3)) for k = 0:2)
 end
 export three_points
 

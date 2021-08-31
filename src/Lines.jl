@@ -19,6 +19,8 @@ end
 
 Line(x::Real, y::Real, xx::Real, yy::Real) = Line(Complex(x, y), Complex(xx, yy))
 
+export Line
+
 import Base: (==)
 
 function (==)(L::Line, M::Line)
@@ -59,5 +61,13 @@ function sort_points(a::Number, b::Number, c::Number)
     return a, c, b
 end
 
-
-export Line
+"""
+    three_points(L::Line)
+Return a list of three points on the line `L`.
+"""
+function three_points(L::Line)
+    x = L.a
+    y = L.b
+    z = x + 2*(y-x)
+    return x,y,z
+end

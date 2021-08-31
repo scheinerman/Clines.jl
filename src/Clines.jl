@@ -40,7 +40,7 @@ function collinear(a::Number, b::Number, c::Number)::Bool
 
     d = x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)
 
-    return abs(d) < get_tolerance()
+    return abs(d) <= get_tolerance()
 end
 
 export collinear

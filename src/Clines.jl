@@ -47,7 +47,7 @@ end
 export collinear
 
 
-is_huge(z::Number) = isinf(z) || abs(z) >= 1/get_tolerance()
+is_huge(z::Number) = isinf(z) || abs(z) >= 1 / get_tolerance()
 
 function Cline(a::Number, b::Number, c::Number)::Cline
     if isnan(a) || isnan(b) || isnan(c)
@@ -97,7 +97,7 @@ function Cline(a::Number, b::Number, c::Number)::Cline
     # if the arguments are collienar, we make a line
     if collinear(a, b, c)
         x, y, z = sort_points(a, b, c)
-        return Line(x, z)  
+        return Line(x, z)
     end
 
     # Otherwise, it's a circle
@@ -121,5 +121,21 @@ function (F::LFT)(C::Cline)
     qq = F.(pp)
     return Cline(qq...)
 end
+
+
+# create a LFT from a pair of Clines
+
+import LinearFractionalTransformations: LFT
+
+"""
+    LFT(C::Cline, D::Cline)
+Return a linear fractional transformation that maps `C` to `D`.
+"""
+function LFT(C::Cline, D::Cline)::LFT
+    a, b, c = three_points(C)
+    aa, bb, cc = three_points(D)
+    return LFT(a, aa, b, bb, c, cc)
+end
+
 
 end # module

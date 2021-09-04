@@ -110,7 +110,7 @@ import SimpleDrawing: draw
 
 include("Lines.jl")
 include("Circles.jl")
-
+include("intersection.jl")
 
 
 
@@ -129,13 +129,22 @@ import LinearFractionalTransformations: LFT
 
 """
     LFT(C::Cline, D::Cline)
-Return a linear fractional transformation that maps `C` to `D`.
+Return a linear fractional transformation that maps `C` to `D`. If `D` is
+omitted, it is assumed to be the x-axis. 
 """
 function LFT(C::Cline, D::Cline)::LFT
-    a, b, c = three_points(C)
-    aa, bb, cc = three_points(D)
-    return LFT(a, aa, b, bb, c, cc)
+    F = LFT(C)
+    G = LFT(D)
+    return inv(G) * F
 end
 
+
+function LFT(C::Circle)::LFT
+    return LFT(three_points(C)...)
+end
+
+function LFT(L::Line)::LFT
+    return LFT(L.a, L.b, Inf)
+end
 
 end # module

@@ -1,5 +1,5 @@
 
-function _make_radii(a::Complex, b::Complex, c::Complex)
+function _make_radii(a::Number, b::Number, c::Number)
     dab = abs(a - b)
     dbc = abs(b - c)
     dac = abs(a - c)
@@ -19,7 +19,7 @@ centered at those points that are mutually tangent.
 
 See: `touch_points`
 """
-function kiss(a::Complex, b::Complex, c::Complex)
+function kiss(a::Number, b::Number, c::Number)
     rads = _make_radii(a, b, c)
     ctrs = [a, b, c]
 
@@ -37,7 +37,7 @@ of three mutually tangent circles centered at those points.
 
 See: `kiss`
 """
-function touch_points(a::Complex, b::Complex, c::Complex)
+function touch_points(a::Number, b::Number, c::Number)
     radii = _make_radii(a, b, c)
     ra, rb, rc = radii
 

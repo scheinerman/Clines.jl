@@ -11,7 +11,7 @@ struct Line <: Cline
 
     function Line(aa::Number, bb::Number)
         if aa == bb || isinf(aa) || isinf(bb)
-            error("Line must be specified by two finite points")
+            error("Line must be specified by two distinct finite points")
         end
         new(aa, bb)
     end

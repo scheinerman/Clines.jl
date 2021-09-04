@@ -27,6 +27,22 @@ Line(1.0 + 1.0im, -1.0 - 1.0im)
 
 + A `Line` can be directly constructed by specifying two points `w` and `z` like this: `Line(w,z)`. 
 
+## Inspection
+
+For any cline `C`, the function `three_points(C)` returns a list of three complex numbers that are distinct points on `C`. 
++ In the case of a circle, the three points are equally spaced around the circle at 0, 120, and 240 degrees starting from the far right. 
++ For a line, the three points are the two points used to define the line and their midpoint. 
+
+For a circle `C`, we have the following:
++ `center(C)` returns the center of the circle as a complex number.
++ `radius(C)` returns the radius of the circle. 
++ `area(C)` returns the area of the circle.
++ `circumference(C)` returns the circumference.
+
+For a line `L`, we have the following:
++ `slope(L)` returns the slope of the line (possibly `Inf`).
++ `dilate(L,factor=2)` creates a new `Line` object that is equal to `L` but whose defining points are further apart by a factor of `factor`.  
+
 
 ## Containment
 
@@ -46,7 +62,7 @@ For two circles `C` and `D`, use `issubset(C,D)` or `C ⊆ D` to test if the cir
 
 ## Intersection
 
-Given two circles `C` and `D` use `intersect(C,D)` or `C ∩ D` to return a set of points that are common to the two circles. This set may have zero, one, or two elements. 
+Given two clines `C` and `D` use `intersect(C,D)` or `C ∩ D` to return a set of points that are common to the two clines. This set may have zero, one, or two elements. 
 ```julia
 julia> C = Circle(0im, 1)
 Circle(0.0, 0.0, 1.0)
@@ -60,7 +76,19 @@ Set{ComplexF64} with 2 elements:
   0.9682458365518543 + 0.25im
 ```
 
-*This should be extended to the intersection of any two clines.*
+**Note**: If the two clines are equal, a warning is issued and the emptyset it returned. 
+
+
+## Linear Fractional (Möbius) Transformations
+
+Clines can be used to define and to be transformed by [Linear Fractional Transformations](https://github.com/scheinerman/LinearFractionalTransformations.jl).
+
+If `F` is a linear fractional transformation, then `F(C)` is the result of applying `F` to the cline `C`.
+
+Given a cline `C`, calling `LFT(C)` returns a linear fractional transformation that maps `C` to the x-axis.
+
+Given two clines `C` and `D`, calling `LFT(C,D)` returns a linear fractional transformation that maps `C` to `D`.
+
 
 ## Inversion
 
@@ -68,6 +96,96 @@ To find the [inversion](https://en.wikipedia.org/wiki/Inversive_geometry) of a p
 + `inv(C,z)` finds the image of the point `z` by inversion through `C`.
 + `inv(C,D)` finds the image of cline `D` by inversion through `C`.
 
+Calling `inv(C)` returns a function `F` with the property that `F(x)` gives `inv(C,x)`.
+
+## Visualization
+
+The function `draw` will draw a `Cline` on the screen using
+[SimpleDrawing](https://github.com/scheinerman/SimpleDrawing.jl) in conjunction with 
+[Plots](https://github.com/JuliaPlots/Plots.jl).
 
 
+### Drawing circles
+```julia
+julia> using SimpleDrawing, Plots
 
+julia> C = Circle(0,0,1)
+Circle(0.0, 0.0, 1.0)
+
+julia> D = Circle(0.25,.5,1.25)
+Circle(0.25, 0.5, 1.25)
+
+julia> E = Circle(.2,.2,.5)
+Circle(0.2, 0.2, 0.5)
+
+julia> newdraw(); draw(C); draw(D,linecolor=:red); draw(E,fill=true,color=:yellow)
+```
+Here is the result:
+
+![](two-circles.png)
+
+## Drawing lines
+
+For a line `L`, the result of `draw(L)` is a line segment (with arrows at each end) drawn between the two points used to define `L`. To extend `L`, use the `dilate` function like this `L=dilate(L)`. This doubles the distance between the two points that define `L`. Use `dilate(L,factor)` to dilate by a different amount. 
+```julia
+julia> L = Line(-1-im, 1+im)
+Line(-1.0 - 1.0im, 1.0 + 1.0im)
+
+julia> LL = dilate(L,3)
+Line(-3.0 - 3.0im, 3.0 + 3.0im)
+
+julia> L == LL
+true
+```
+
+
+## Roundoff Problems
+
+Most of the operations in this module subject to roundoff errors. For example, to test if a point `z` lies on a circle `C` we would compute the distance from `z` to the center of `C` and check if that equals the radius. However, because of roundoff errors, a strict test for equality may yield `false` when mathematically the result should be `true`.
+
+We provide the following funtions for dealing with roundoff errors:
++ `set_tolerance(tol)` sets the tolerance for roundoff errors to `tol`. Without an argument, we set the tolerance to the module's default value.
++ `get_tolerance()` returns the current tolerance setting.
+
+For example:
+```julia
+julia> C = Circle(0,0,sqrt(2));   # circle of radius sqrt(2)
+
+julia> z = sqrt(2) * exp(im);     # mathematically, this is a point on C
+
+julia> z ∈ C                      # success
+true
+
+julia> set_tolerance(1e-100)      # make tolerance unreasonably small
+1.0e-100
+
+julia> z ∈ C                      # test fails
+false
+```
+
+
+## Kissing Circles
+
+Given three (noncollinear) points `a`, `b`, and `c`, the function `kiss(a,b,c)` returns a list of three circles whose centers are `a`, `b`, and `c` that are pairwise tangent.
+
+Then, given three mutually tangent circles, the function `soddy` returns a circle that is tangent to all three and nestled in the space between them.
+```julia
+julia> CC = kiss(-1,2im,1-im)
+3-element Vector{Circle}:
+ Circle(-1.0, 0.0, 0.6549291474156)
+ Circle(0.0, 2.0, 1.5811388300841898)
+ Circle(1.0, -1.0, 1.5811388300841898)
+
+julia> S = soddy(CC...)
+Circle(-0.21638837510877562, 0.26120387496374137, 0.17107003113165417)
+
+julia> newdraw(); draw.(CC); draw(S,fill=true,color=:red); finish()
+```
+Here is the result:
+
+![](soddy-pic.png)
+
+
+## Other
+
++ `collinear(a,b,c)` determines if the points specified by the three complex numbers are collinear. 

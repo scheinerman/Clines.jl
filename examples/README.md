@@ -25,3 +25,11 @@ One of my favorite theorems from basic geometry is this:
 *Suppose we have four circles, `C1` through `C4` in which `C1` is tangent to `C2` is tangent to `C3` is tangent to `C4` is tangent to `C1`. Then the four points of tangency lie on a common cline (typically a circle).*
 
 The function `fourway()` produces an illustration of this fact and the result is available in `fourway.pdf`.
+
+<hr>
+
+## Pencil of Circles: `pencil.jl`
+
+A collection of concurrent lines (lines all which contain a given point `z`) is called a *pencil* of lines. If we apply a linear fractional transformation to the lines in a pencil, the result is an (elliptic) pencil of circles. These circles all contain a given pair of points `A` and `B`, the centers of these circles all lie on the perpendicular bisector of the line segment `AB`.
+
+Use `pencil(n)` to create a picture showing `n` circles. The file `pencil.pdf` shows the result of `pencil(6)`. 

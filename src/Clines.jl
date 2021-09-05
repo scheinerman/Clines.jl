@@ -111,6 +111,7 @@ import SimpleDrawing: draw
 include("Lines.jl")
 include("Circles.jl")
 include("intersection.jl")
+include("angle.jl")
 
 
 

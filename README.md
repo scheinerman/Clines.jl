@@ -44,23 +44,9 @@ For a line `L`, we have the following:
 + `dilate(L,factor=2)` creates a new `Line` object that is equal to `L` but whose defining points are further apart by a factor of `factor`.  
 
 
-## Containment
+## Pairs
 
-For a point `z` and a cline `C`, use `in(z,C)` or `z ∈ C` to test of if `z` lies on `C`.
-```julia
-julia> C = Circle(0im,1)
-Circle(0.0, 0.0, 1.0)
-
-julia> z = 0.6 + 0.8im
-0.6 + 0.8im
-
-julia> z ∈ C
-true
-```
-
-For two circles `C` and `D`, use `issubset(C,D)` or `C ⊆ D` to test if the circle `C` is contained inside circle `D`. 
-
-## Intersection
+### Intersection
 
 Given two clines `C` and `D` use `intersect(C,D)` or `C ∩ D` to return a set of points that are common to the two clines. This set may have zero, one, or two elements. 
 ```julia
@@ -77,6 +63,27 @@ Set{ComplexF64} with 2 elements:
 ```
 
 **Note**: If the two clines are equal, a warning is issued and the emptyset it returned. 
+
+### Angle
+
+For two clines, `angle(C,D)` computes the angle of intersection in the range `[0,π/2]`. If the clines do not intersect, an error is thrown. Note that parallel lines are considered to intersect at infinity and their angle is reported as `0`.
+
+
+### Containment
+
+For a point `z` and a cline `C`, use `in(z,C)` or `z ∈ C` to test of if `z` lies on `C`.
+```julia
+julia> C = Circle(0im,1)
+Circle(0.0, 0.0, 1.0)
+
+julia> z = 0.6 + 0.8im
+0.6 + 0.8im
+
+julia> z ∈ C
+true
+```
+
+For two circles `C` and `D`, use `issubset(C,D)` or `C ⊆ D` to test if the circle `C` is contained inside circle `D`. 
 
 
 ## Linear Fractional (Möbius) Transformations
@@ -122,7 +129,7 @@ julia> newdraw(); draw(C); draw(D,linecolor=:red); draw(E,fill=true,color=:yello
 ```
 Here is the result:
 
-![](two-circles.png)
+![](three-circles.png)
 
 ## Drawing lines
 

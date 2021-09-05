@@ -1,8 +1,9 @@
 # Examples for the `Clines` module
 
-This is documentation for code in the `examples` directory of the `Clines` module.
+This is documentation for the code in the `examples` directory of the `Clines` module.
 
-## Apollonian Circles
+## Apollonian Circles: `apollo.jl`
+
 
 The function `apollo` is used to create an Apollonian circle packing picture. Starting with three mutually tangent circles, place a fourth circle mutually tangent to those three (using the `soddy` function) and then recurse three times using pairs of the original circles and the new circle.
 
@@ -15,3 +16,12 @@ In all cases, a final `min_radius` option may be specified to halt the recursion
 
 See the included file `apollo.pdf` (which has been cropped) to see the result of `apollo()`. 
 
+<hr>
+
+## Ring of Four Circles: `fourway.jl`
+
+One of my favorite theorems from basic geometry is this: 
+
+*Suppose we have four circles, `C1` through `C4` in which `C1` is tangent to `C2` is tangent to `C3` is tangent to `C4` is tangent to `C1`. Then the four points of tangency lie on a common cline (typically a circle).*
+
+The function `fourway()` produces an illustration of this fact and the result is available in `fourway.pdf`.

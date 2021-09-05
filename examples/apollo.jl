@@ -1,7 +1,5 @@
 using Clines, SimpleDrawing, Plots
 
-
-
 function apollo_work(C1::Circle, C2::Circle, C3::Circle, min_radius)
     S = soddy(C1, C2, C3)
     if radius(S) < min_radius

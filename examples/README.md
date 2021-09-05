@@ -33,3 +33,5 @@ The function `fourway()` produces an illustration of this fact and the result is
 A collection of concurrent lines (lines all which contain a given point `z`) is called a *pencil* of lines. If we apply a linear fractional transformation to the lines in a pencil, the result is an (elliptic) pencil of circles. These circles all contain a given pair of points `A` and `B`, the centers of these circles all lie on the perpendicular bisector of the line segment `AB`.
 
 Use `pencil(n)` to create a picture showing `n` circles. The file `pencil.pdf` shows the result of `pencil(6)`. 
+
+The result of `double_pencil(n)` is a diagram with a blue elliptical pencil of circles overlayed with a red hyperbolic pencil of circles. The red circles intersect the blue circles in right angles. The result of `double_pencil(8)` is in the file `double_pencil.pdf`. 

@@ -26,3 +26,25 @@ function pencil(n::Int)
     z = exp(pi*im/(2n))
     pencil(z,n)
 end
+
+
+
+function double_pencil(n::Int)
+    LL = pencil_lines(n)
+    CC = [Circle(0im,k) for k=1:n]
+    r = floor(n/2) + 0.5
+    z = r*exp(pi*im/(2n))
+    F = LFT(0,1,1,-z)
+
+    LL = F.(LL)
+    CC = F.(CC)
+    
+    newdraw()
+    for L in LL
+        draw(L,linecolor=:blue)
+    end
+    for C in CC
+        draw(C,linecolor=:red)
+    end
+    finish()
+end

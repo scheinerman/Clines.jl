@@ -1,7 +1,7 @@
 name = "Clines"
 uuid = "b03ef683-e087-4e84-9649-40693305c655"
 authors = ["Ed Scheinerman <ers@jhu.edu>"]
-version = "0.1.0"
+version = "0.1.1"
 
 
 [deps]

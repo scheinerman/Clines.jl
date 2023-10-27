@@ -103,25 +103,13 @@ function draw(L::Line; args...)
     XX = (_border_cross(L, LL) for LL in Blines)
     Xset = union(XX...)
 
-    @show Xset
-
     if length(Xset) != 2 
         return 
     end
 
     P,Q = collect(Xset)
     force_draw(Line(P,Q))
-
-
-    # # old code here
-    # a = L.a
-    # c = L.b
-    # b = (a + c) / 2
-    # draw_segment(b, a, arrow = true, linecolor = :black, args...)
-    # draw_segment(b, c, arrow = true, linecolor = :black, args...)
 end
 
-
-
-
-export _frame, _border_lines, _between_check, _border_cross   # temp
+# expose for debugging
+# export _frame, _border_lines, _between_check, _border_cross   

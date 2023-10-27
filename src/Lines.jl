@@ -99,14 +99,4 @@ end
 export dilate
 
 
-# THIS IS A BAD DRAWING METHOD FOR LINES, BUT WILL HAVE TO DO FOR NOW
-# It simply draws an arrowed line segment between L.a and L.b
-# See: dilate
-
-function draw(L::Line; args...)
-    a = L.a
-    c = L.b
-    b = (a + c) / 2
-    draw_segment(b, a, arrow = true, linecolor = :black, args...)
-    draw_segment(b, c, arrow = true, linecolor = :black, args...)
-end
+include("draw_line.jl")

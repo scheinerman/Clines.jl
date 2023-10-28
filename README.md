@@ -142,25 +142,26 @@ This is illustrated in the following two examples.
 In this first example, we draw a circle of radius 1 and then three lines. One of the lines (slated to be blue) lies outside the frame so it is not drawn. We then add a circle of radius 2.
 ```
 newdraw()
-draw(Circle(0, 0, 1), color = :black, style=:dash)
+draw(Circle(0, 0, 1), color = :black, style = :dash)
 draw(Line(0, 0, 1, 2), color = :green)
 draw(Line(-5, 0.5, 2, 1), color = :red)
-draw(Line(-5,1.5,5,1.5),color=:blue)
-draw(Circle(0, 0, 2), color = :black,style=:dash)
+draw(Line(-5, 1.5, 5, 1.5), color = :blue)
+draw(Circle(0, 0, 2), color = :black, style = :dash)
 ```
 Here is the result:
 
 ![](two_lines_small.png)
 
 However, in this second example, we draw the big circle first (causing the plotting area to be larger)
-and then draw the lines. Now the window is large enough that the blue line appears.
+and then draw the lines and the smaller circle. 
+The window is large enough for the blue line appears.
 ```
 newdraw()
-draw(Circle(0, 0, 2), color = :black, style=:dash)
+draw(Circle(0, 0, 2), color = :black, style = :dash)
 draw(Line(0, 0, 1, 2), color = :green)
 draw(Line(-5, 0.5, 2, 1), color = :red)
-draw(Line(-5,1.5,5,1.5),color=:blue)
-draw(Circle(0, 0, 1), color = :black,style=:dash)
+draw(Line(-5, 1.5, 5, 1.5), color = :blue)
+draw(Circle(0, 0, 1), color = :black, style = :dash)
 ```
 
 As shown in the figure, the blue line is now present.
@@ -176,11 +177,11 @@ This draws the line as a double-arrowed segment joining the two points that defi
 
 ```
 newdraw()
-draw(Circle(0, 0, 1), color = :black, style=:dash)
+draw(Circle(0, 0, 1), color = :black, style = :dash)
 draw(Line(-5, 0.5, 2, 1), color = :red)
 draw(Line(0, 0, 1, 2), color = :green)
-force_draw(Line(-5,1.5,5,1.5),color=:blue)
-draw(Circle(0, 0, 2), color = :black,style=:dash)
+force_draw(Line(-5, 1.5, 5, 1.5), color = :blue)
+draw(Circle(0, 0, 2), color = :black, style = :dash)
 ```
 
 Here is the result:

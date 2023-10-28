@@ -131,27 +131,63 @@ Here is the result:
 
 ![](three-circles.png)
 
-## Drawing lines
+### Drawing lines
 
 Since lines are infinite, drawing them presents a challenge. For a line `L`, calling `draw(L)`
 will draw `L` in the current graphics window as a line segment with arrows on each end.
 However, if the line does not overlap the current window, nothing is drawn. 
 
-MORE TBW
+This is illustrated in the following two examples. 
 
-> OLD STUFF (NEEDS TO BE FIXED)
-
-> For a line `L`, the result of `draw(L)` is a line segment (with arrows at each end) drawn between > the two points used to define `L`. To extend `L`, use the `dilate` function like this `L=dilate(L)`. This doubles the distance between the two points that define `L`. Use `dilate(L,factor)` to dilate by a different amount. 
+In this first example, we draw a circle of radius 1 and then three lines. One of the lines (slated to be blue) lies outside the frame so it is not drawn. We then add a circle of radius 2.
 ```
-julia> L = Line(-1-im, 1+im)
-Line(-1.0 - 1.0im, 1.0 + 1.0im)
-
-julia> LL = dilate(L,3)
-Line(-3.0 - 3.0im, 3.0 + 3.0im)
-
-julia> L == LL
-true
+newdraw()
+draw(Circle(0, 0, 1), color = :black, style=:dash)
+draw(Line(0, 0, 1, 2), color = :green)
+draw(Line(-5, 0.5, 2, 1), color = :red)
+draw(Line(-5,1.5,5,1.5),color=:blue)
+draw(Circle(0, 0, 2), color = :black,style=:dash)
 ```
+Here is the result:
+
+![](two_lines_small.png)
+
+However, in this second example, we draw the big circle first (causing the plotting area to be larger)
+and then draw the lines. Now the window is large enough that the blue line appears.
+```
+newdraw()
+draw(Circle(0, 0, 2), color = :black, style=:dash)
+draw(Line(0, 0, 1, 2), color = :green)
+draw(Line(-5, 0.5, 2, 1), color = :red)
+draw(Line(-5,1.5,5,1.5),color=:blue)
+draw(Circle(0, 0, 1), color = :black,style=:dash)
+```
+
+As shown in the figure, the blue line is now present.
+
+![](two_lines_big.png)
+
+
+#### Forced line drawing
+
+Because lines outside the frame of the window do not appear, we provide the function `force_draw`.
+This draws the line as a double-arrowed segment joining the two points that define the line. 
+
+
+```
+newdraw()
+draw(Circle(0, 0, 1), color = :black, style=:dash)
+draw(Line(-5, 0.5, 2, 1), color = :red)
+draw(Line(0, 0, 1, 2), color = :green)
+force_draw(Line(-5,1.5,5,1.5),color=:blue)
+draw(Circle(0, 0, 2), color = :black,style=:dash)
+```
+
+Here is the result:
+
+![](force_example.png)
+
+
 
 
 ## Roundoff Problems

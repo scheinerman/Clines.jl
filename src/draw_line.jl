@@ -1,5 +1,3 @@
-
-
 export force_draw
 """
     force_draw(L::Line; args...)
@@ -10,8 +8,9 @@ function force_draw(L::Line; args...)
     a = L.a
     c = L.b
     b = (a + c) / 2
-    draw_segment(b, a, arrow = true, linecolor = :black, args...)
-    draw_segment(b, c, arrow = true, linecolor = :black, args...)
+    draw_segment(b, a, color=:black, arrow = true; args...)
+    draw_segment(b, c, color=:black, arrow = true; args...)
+    finish()
 end
 
 _default_factor = 0.05
@@ -76,9 +75,9 @@ function _between_check(L::Line, z::Complex)::Bool
 end
 
 function _border_cross(L::Line, BLine::Line)::Set{ComplexF64}
-    X = L ∩ BLine 
+    X = L ∩ BLine
     if isempty(X)
-        return X 
+        return X
     end
     if _between_check(BLine, first(X))
         return X
@@ -88,13 +87,12 @@ end
 
 
 function draw(L::Line; args...)
-
     Blines = _border_lines()
 
     # if L is a border line, draw it
     for LL in Blines
         if LL == L
-            force_draw(LL, args...)
+            force_draw(LL; args...)
             return
         end
     end
@@ -103,12 +101,12 @@ function draw(L::Line; args...)
     XX = (_border_cross(L, LL) for LL in Blines)
     Xset = union(XX...)
 
-    if length(Xset) != 2 
-        return 
+    if length(Xset) != 2
+        return
     end
 
-    P,Q = collect(Xset)
-    force_draw(Line(P,Q))
+    P, Q = collect(Xset)
+    force_draw(Line(P, Q); args...)
 end
 
 # expose for debugging

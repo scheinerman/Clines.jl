@@ -5,7 +5,7 @@ A [cline](https://en.wikipedia.org/wiki/Generalised_circle) is a circle or a lin
 ## Construction
 
 A cline is specified by three points in the plane represented by complex numbers. If the three points are collinear, then a line is created. Otherwise, there is a unique circle containing those three points and that is what is returned.
-```julia
+```
 julia> using Clines
 
 julia> Cline(2-im, 3im, 1-im)
@@ -49,7 +49,7 @@ For a line `L`, we have the following:
 ### Intersection
 
 Given two clines `C` and `D` use `intersect(C,D)` or `C ∩ D` to return a set of points that are common to the two clines. This set may have zero, one, or two elements. 
-```julia
+```
 julia> C = Circle(0im, 1)
 Circle(0.0, 0.0, 1.0)
 
@@ -72,7 +72,7 @@ For two clines, `angle(C,D)` computes the angle of intersection in the range `[0
 ### Containment
 
 For a point `z` and a cline `C`, use `in(z,C)` or `z ∈ C` to test of if `z` lies on `C`.
-```julia
+```
 julia> C = Circle(0im,1)
 Circle(0.0, 0.0, 1.0)
 
@@ -113,7 +113,7 @@ The function `draw` will draw a `Cline` on the screen using
 
 
 ### Drawing circles
-```julia
+```
 julia> using SimpleDrawing, Plots
 
 julia> C = Circle(0,0,1)
@@ -133,8 +133,16 @@ Here is the result:
 
 ## Drawing lines
 
-For a line `L`, the result of `draw(L)` is a line segment (with arrows at each end) drawn between the two points used to define `L`. To extend `L`, use the `dilate` function like this `L=dilate(L)`. This doubles the distance between the two points that define `L`. Use `dilate(L,factor)` to dilate by a different amount. 
-```julia
+Since lines are infinite, drawing them presents a challenge. For a line `L`, calling `draw(L)`
+will draw `L` in the current graphics window as a line segment with arrows on each end.
+However, if the line does not overlap the current window, nothing is drawn. 
+
+MORE TBW
+
+> OLD STUFF (NEEDS TO BE FIXED)
+
+> For a line `L`, the result of `draw(L)` is a line segment (with arrows at each end) drawn between > the two points used to define `L`. To extend `L`, use the `dilate` function like this `L=dilate(L)`. This doubles the distance between the two points that define `L`. Use `dilate(L,factor)` to dilate by a different amount. 
+```
 julia> L = Line(-1-im, 1+im)
 Line(-1.0 - 1.0im, 1.0 + 1.0im)
 
@@ -155,7 +163,7 @@ We provide the following funtions for dealing with roundoff errors:
 + `get_tolerance()` returns the current tolerance setting.
 
 For example:
-```julia
+```
 julia> C = Circle(0,0,sqrt(2));   # circle of radius sqrt(2)
 
 julia> z = sqrt(2) * exp(im);     # mathematically, this is a point on C
@@ -176,7 +184,7 @@ false
 Given three (noncollinear) points `a`, `b`, and `c`, the function `kiss(a,b,c)` returns a list of three circles whose centers are `a`, `b`, and `c` that are pairwise tangent.
 
 Then, given three mutually tangent circles, the function `soddy` returns a circle that is tangent to all three and nestled in the space between them.
-```julia
+```
 julia> CC = kiss(-1,2im,1-im)
 3-element Vector{Circle}:
  Circle(-1.0, 0.0, 0.6549291474156)

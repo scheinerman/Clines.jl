@@ -19,8 +19,84 @@ struct Ray
 end
 
 """
+    vertex(R::Ray)
+
+Return the vertex of the ray `R`.
+"""
+vertex(R::Ray) = R.a
+
+
+"""
     Ray(x::Real, y::Real, xx::Real, yy::Real)
 
 TBW
 """
 Ray(x::Real, y::Real, xx::Real, yy::Real) = Ray(Complex(x, y), Complex(xx, yy))
+
+
+Line(R::Ray) = Line(R.a, R.b)
+
+three_points(R::Ray) = [R.a, 0.5 * (R.a + R.b), R.b]
+
+function in(z::Number, R::Ray)::Bool
+    a = R.a
+    b = R.b
+
+    if z == a || z == b
+        return true
+    end
+
+    if !collinear(Complex(z), a, b)
+        return false
+    end
+
+    rat = real((z - a) / (b - a))
+
+    return rat > 0
+end
+
+function (==)(R::Ray, RR::Ray)::Bool
+    # check they have the same vertex
+    if abs(R.a - RR.a) > get_tolerance()
+        return false
+    end
+
+    # check if the other point of R is in RR 
+    return R.b ∈ RR
+end
+
+"""
+    issubset(R::Ray, RR::Ray)
+    R ⊆ RR
+
+Test of ray `R` is completely contained in `RR`.
+"""
+function issubset(R::Ray, RR::Ray)
+    a = R.a
+    b = R.b
+    aa = RR.a
+    bb = RR.b
+
+    if a ∉ RR || b ∉ RR
+        return false
+    end
+
+    rat = real((b - a) / (bb - aa))
+    return rat >= 0
+
+end
+
+
+"""
+    (-)(R::Ray)::Ray
+
+`-R`, for a ray `R`, is a ray with the same vertex but pointing
+in the opposite direction. 
+"""
+function (-)(R::Ray)::Ray
+    a = R.a
+    b = R.b
+
+    bb = 2a - b
+    return Ray(a, bb)
+end

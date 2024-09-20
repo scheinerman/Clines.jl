@@ -114,21 +114,42 @@ function intersect(C::Cline, D::Cline)::Set{Complex{Float64}}
     X = Line(0, 1)  # x-axis 
     S = X ∩ DD
     return G.(S)
+end
 
-    # x, y = reim(DD.a)
-    # xx, yy = reim(DD.b)
 
-    # if abs(y - yy) < get_tolerance()  # DD is a horizontal line 
-    #     return complex_empty()
-    # end
 
-    # if abs(x - xx) < get_tolerance()  # DD is a vertical line 
-    #     z = G((x + xx) / 2)
-    #     return Set{Complex{Float64}}(z)
-    # end
 
-    # slope = (y - yy) / (x - xx)
-    # δ = y / slope
-    # z = G(x - δ)
-    # return Set{Complex{Float64}}(z)
+## RAY INTERSECTION WITH OTHER RAYS, LINES, and Circles
+
+function intersect(R::Ray, RR::Ray)
+    msg = "Intersection of overlapping rays returns the empty set"
+
+    if R ⊆ RR || RR ⊆ R 
+        @warn msg
+        return complex_empty
+    end
+
+    L = Line(R)
+    LL = Line(RR)
+
+    if L==LL  # lines are the same, but no containment
+        a = vertex(R)
+        aa = vertex(RR)
+        if abs(a-aa) <= get_tolerance()
+            return Set(a)
+        end
+        @warn msg 
+        return complex_empty
+    end
+
+    S = L ∩ LL
+    if length(S) == 0 # they don't intersect
+        return S
+    end
+    p = first(S)  # should be only one point 
+    if p ∈ R && p ∈ RR
+        return S
+    end
+    return complex_empty
+
 end

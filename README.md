@@ -62,7 +62,7 @@ Set{ComplexF64} with 2 elements:
   0.9682458365518543 + 0.25im
 ```
 
-**Note**: If the two clines are equal, a warning is issued and the emptyset it returned. 
+> **Note**: If the two clines are equal, a warning is issued and the empty set is returned. 
 
 ### Angle
 
@@ -241,3 +241,8 @@ Here is the result:
 ## Other
 
 + `collinear(a,b,c)` determines if the points specified by the three complex numbers are collinear. 
+
+
+## Rays
+
+TBW: A `Ray` is constructed by specifying a vertex and a point on the ray. More to come.

@@ -7,7 +7,7 @@ _TOLERANCE = _DEFAULT_TOL
 
 import Plots: center
 import SimpleDrawing: draw
-import Base: (==), angle, in, inv, issubset, intersect
+import Base: (-), (==), angle, in, inv, issubset, intersect, issubset
 
 export Circle,
     Cline,
@@ -26,7 +26,8 @@ export Circle,
     slope,
     soddy,
     three_points,
-    touch_objects
+    touch_objects,
+    vertex
 
 """
     set_tolerance(tol)
@@ -126,10 +127,10 @@ Cline(a::Number, b::Number) = Cline(a, b, Inf)
 import SimpleDrawing: draw
 
 include("Lines.jl")
+include("Rays.jl")
 include("Circles.jl")
 include("intersection.jl")
 include("angle.jl")
-include("Rays.jl")
 
 
 

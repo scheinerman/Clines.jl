@@ -27,7 +27,7 @@ end
 
 
 """
-    in(z,L::Line)
+    in(z::Number, L::Line)
 Check if the point `z` lies on the line `L`.
 """
 function in(z::Number, L::Line)

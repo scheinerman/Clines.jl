@@ -118,3 +118,19 @@ end
     S = soddy(CC...)
     @test length(CC[3] ∩ S) == 1
 end
+
+
+@testset "Rays" begin
+    R = Ray(0, 0, 2, 2)
+    @test 1 + im ∈ R
+    L = Line(R)
+    @test -1 - im ∈ L
+    @test -1 - im ∉ R
+
+    C = Circle(0, 0, 5)
+    R = Ray(0, 6 + 8im)
+    p = first(C ∩ R)
+    set_tolerance(1e-4)
+    @test p ∈ C
+    @test p ∈ R
+end

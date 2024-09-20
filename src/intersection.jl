@@ -125,7 +125,7 @@ end
 function intersect(R::Ray, RR::Ray)
     msg = "Intersection of overlapping rays returns the empty set"
 
-    if R ⊆ RR || RR ⊆ R 
+    if R ⊆ RR || RR ⊆ R
         @warn msg
         return complex_empty
     end
@@ -133,13 +133,13 @@ function intersect(R::Ray, RR::Ray)
     L = Line(R)
     LL = Line(RR)
 
-    if L==LL  # lines are the same, but no containment
+    if L == LL  # lines are the same, but no containment
         a = vertex(R)
         aa = vertex(RR)
-        if abs(a-aa) <= get_tolerance()
+        if abs(a - aa) <= get_tolerance()
             return Set(a)
         end
-        @warn msg 
+        @warn msg
         return complex_empty
     end
 
@@ -157,11 +157,11 @@ end
 
 # RAY/CLINE INTERSECTION 
 function intersect(R::Ray, X::Cline)
-    S = Line(R) ∩ X 
-    if length(S) == 0 
-        return S 
+    S = Line(R) ∩ X
+    if length(S) == 0
+        return S
     end
-    return Set(s for s ∈ S if s ∈ R  )
+    return Set(s for s ∈ S if s ∈ R)
 end
 
-intersect(X::Cline, R::Ray) = R ∩ X 
+intersect(X::Cline, R::Ray) = R ∩ X

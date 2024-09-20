@@ -245,4 +245,18 @@ Here is the result:
 
 ## Rays
 
-TBW: A `Ray` is constructed by specifying a vertex and a point on the ray. More to come.
+A `Ray` is constructed by specifying a vertex and a point on the ray. These are equivalent:
+* `Ray(1+im, 2+2im)`
+* `Ray(1+im, 3+3im)`
+* `Ray(1,1,2,2)`
+
+
+
+Here is basic information about `Ray`s. 
+
+* Construct a new `Ray` by specifying two points `a` and `b` (complex numbers) where `a` is the vertex of the `Ray` and `b` is any point on the ray.
+* Use `vertex(R)` to get the point that is the vertex of the ray.
+* Use `Line(R)` to extend a `Ray` into a `Line`. 
+* Use `-R` to create a ray with the same vertex as `R` but pointing in the opposite direction. 
+* Drawing `Ray`s is analogous to drawing `Lines`. 
+* Other functions show work as expected.

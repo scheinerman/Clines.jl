@@ -121,6 +121,7 @@ end
 
 ## RAY INTERSECTION WITH OTHER RAYS, LINES, and Circles
 
+# RAY/RAY interesection
 function intersect(R::Ray, RR::Ray)
     msg = "Intersection of overlapping rays returns the empty set"
 
@@ -151,5 +152,16 @@ function intersect(R::Ray, RR::Ray)
         return S
     end
     return complex_empty
-
 end
+
+
+# RAY/CLINE INTERSECTION 
+function intersect(R::Ray, X::Cline)
+    S = Line(R) ∩ X 
+    if length(S) == 0 
+        return S 
+    end
+    return Set(s for s ∈ S if s ∈ R  )
+end
+
+intersect(X::Cline, R::Ray) = R ∩ X 

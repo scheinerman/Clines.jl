@@ -1,13 +1,32 @@
 module Clines
 
 abstract type Cline end
-export Cline
-
 
 const _DEFAULT_TOL = 1e-10
 _TOLERANCE = _DEFAULT_TOL
 
-export set_tolerance, get_tolerance
+import Plots: center
+import SimpleDrawing: draw
+import Base: (==), angle, in, inv, issubset, intersect
+
+export Circle,
+    Cline,
+    Line,
+    Ray,
+    area,
+    center,
+    circumference,
+    collinear,
+    dilate,
+    force_draw,
+    get_tolerance,
+    kiss,
+    radius,
+    set_tolerance,
+    slope,
+    soddy,
+    three_points,
+    touch_objects
 
 """
     set_tolerance(tol)
@@ -43,8 +62,6 @@ function collinear(a::Number, b::Number, c::Number)::Bool
 
     return abs(d) <= get_tolerance()
 end
-
-export collinear
 
 
 is_huge(z::Number) = isinf(z) || abs(z) >= 1 / get_tolerance()
@@ -112,6 +129,7 @@ include("Lines.jl")
 include("Circles.jl")
 include("intersection.jl")
 include("angle.jl")
+include("Rays.jl")
 
 
 

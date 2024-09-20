@@ -19,16 +19,13 @@ end
 
 Line(x::Real, y::Real, xx::Real, yy::Real) = Line(Complex(x, y), Complex(xx, yy))
 
-export Line
 
-import Base: (==)
 
 function (==)(L::Line, M::Line)
     return collinear(L.a, L.b, M.a) && collinear(L.a, L.b, M.b)
 end
 
 
-import Base: in
 """
     in(z,L::Line)
 Check if the point `z` lies on the line `L`.
@@ -37,7 +34,6 @@ function in(z::Number, L::Line)
     return collinear(Complex(z), L.a, L.b)
 end
 
-export slope
 function slope(L::Line)::Float64
     x, y = reim(L.a)
     xx, yy = reim(L.b)
@@ -96,7 +92,6 @@ function dilate(L::Line, factor = 2)
 
     return Line(aa, bb)
 end
-export dilate
 
 
 include("draw_line.jl")

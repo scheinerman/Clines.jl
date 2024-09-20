@@ -1,5 +1,4 @@
 
-import Base.in
 
 """
     in(z,C)
@@ -11,7 +10,6 @@ function in(z::Number, C::Circle)::Bool
     return abs(d - radius(C)) <= get_tolerance()
 end
 
-import Base.issubset
 
 function issubset(C::Circle, D::Circle)
     z = center(C)

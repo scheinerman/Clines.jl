@@ -1,5 +1,3 @@
-import Base: inv
-
 """
     inv(C::Cline, z::Number) 
     inv(C::Cline, D::Cline)

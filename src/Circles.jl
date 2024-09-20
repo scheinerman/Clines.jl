@@ -1,7 +1,5 @@
 using SimpleDrawing, LinearFractionalTransformations
 
-export Circle
-
 """
     Circle
 
@@ -34,7 +32,6 @@ Circle(C::Circle) = Circle(C.x, C.y, C.r)
 
 # standard stuff
 
-export radius, area, circumference, center
 
 """
     radius(C)
@@ -54,7 +51,6 @@ Return the circumference of the circle.
 """
 circumference(C::Circle) = 2 * π * C.r
 
-import Plots: center
 """
     center(C)
 Return the center of the circle as a complex number. 
@@ -70,9 +66,7 @@ function three_points(C::Circle)
     r = radius(C)
     return [z + r * exp(k * (2π * im / 3)) for k = 0:2]
 end
-export three_points
 
-import SimpleDrawing: draw
 const _FILL_COLOR = :lightgray
 const _LINE_COLOR = :black
 

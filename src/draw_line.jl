@@ -1,4 +1,3 @@
-export force_draw
 """
     force_draw(L::Line; args...)
 
@@ -8,8 +7,8 @@ function force_draw(L::Line; args...)
     a = L.a
     c = L.b
     b = (a + c) / 2
-    draw_segment(b, a, color=:black, arrow = true; args...)
-    draw_segment(b, c, color=:black, arrow = true; args...)
+    draw_segment(b, a, color = :black, arrow = true; args...)
+    draw_segment(b, c, color = :black, arrow = true; args...)
     finish()
 end
 

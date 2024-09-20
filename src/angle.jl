@@ -1,5 +1,3 @@
-import Base: angle
-
 _dot2(v::Vector, w::Vector) = v[1] * w[1] + v[2] * w[2]
 
 _no_intersect_error = "The two clines do not intersect; no angle can be calculated."

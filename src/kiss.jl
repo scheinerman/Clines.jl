@@ -25,7 +25,6 @@ function kiss(a::Number, b::Number, c::Number)
     [Circle(ctrs[k], rads[k]) for k = 1:3]
 end
 
-export kiss, touch_points
 
 
 """
@@ -91,7 +90,6 @@ function soddy_center(C1::Circle, C2::Circle, C3::Circle)
 end
 
 
-export soddy
 
 """
     soddy(C1,C2,C3)

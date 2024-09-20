@@ -1,5 +1,3 @@
-import Base.intersect
-
 complex_empty = Set{Complex{Float64}}()
 identical_warn = "Intersection of identical clines returns the empty set"
 

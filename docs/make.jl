@@ -2,4 +2,4 @@
 # julia --color=yes --project make.jl
 
 using Documenter, Clines
-makedocs(; sitename="Clines")
+makedocs(; sitename = "Clines")
